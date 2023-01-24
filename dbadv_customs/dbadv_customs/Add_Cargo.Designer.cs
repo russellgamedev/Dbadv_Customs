@@ -51,7 +51,7 @@
             this.CargoNameTxtBox.Name = "CargoNameTxtBox";
             this.CargoNameTxtBox.Size = new System.Drawing.Size(306, 22);
             this.CargoNameTxtBox.TabIndex = 0;
-            this.CargoNameTxtBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            //this.CargoNameTxtBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // WeightTxtBox
             // 
@@ -97,7 +97,7 @@
             this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "cargo name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -142,7 +142,7 @@
             this.label5.Size = new System.Drawing.Size(42, 16);
             this.label5.TabIndex = 11;
             this.label5.Text = "Origin";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+            //this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -152,7 +152,7 @@
             this.label6.Size = new System.Drawing.Size(53, 16);
             this.label6.TabIndex = 12;
             this.label6.Text = "Volume";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            //this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
