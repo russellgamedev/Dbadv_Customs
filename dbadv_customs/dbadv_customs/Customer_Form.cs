@@ -33,16 +33,10 @@ namespace dbadv_customs
         }
 
         void InsertToCustomerTable()
-        {
-            string connection_String = "Server=localhost;" +
-            "Port=5432;" +
-            "Database=Customs;" +
-            "User Id=postgres;" +
-            "Password=1234";
-
+        {            
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection(connection_String);
+                NpgsqlConnection conn = new NpgsqlConnection(DatabaseManager.connection_String);
                 conn.Open();
                 NpgsqlCommand comm = new NpgsqlCommand("add_new_customer", conn);
                 comm.CommandType = CommandType.StoredProcedure;
