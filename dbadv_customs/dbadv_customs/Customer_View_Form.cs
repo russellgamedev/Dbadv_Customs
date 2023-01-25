@@ -16,8 +16,7 @@ namespace dbadv_customs
         public Customer_View_Form()
         {
             InitializeComponent();
-            NpgsqlConnection conn = new NpgsqlConnection(
-                "Server=localhost;Port=5432;Database=Customs;User Id=postgres;Password=1234");
+            NpgsqlConnection conn = new NpgsqlConnection(DatabaseManager.connection_String);
             conn.Open();
             NpgsqlCommand comm = new NpgsqlCommand();
             comm.Connection = conn;

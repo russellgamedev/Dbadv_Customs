@@ -27,7 +27,11 @@ namespace dbadv_customs
             if (!SsnLenghtIs10()) return;
             if (!PhoneNumberLenghtIs11()) return;
             if (!PostNumberLenghtIs10()) return;
-            if (TextBoxIsNull()) return;
+            if (TextBoxIsNull())
+            {
+                MessageBox.Show("Please Complete form!");
+                return;
+            }
 
             InsertToCustomerTable();
         }
@@ -64,7 +68,6 @@ namespace dbadv_customs
         }
         bool TextBoxIsNull()
         {
-
             if (fnameTxtBox.Text == "") return true;
             if (fnameTxtBox.Text == "") return true;
             if (ssnTxtbox.Text == "") return true;
