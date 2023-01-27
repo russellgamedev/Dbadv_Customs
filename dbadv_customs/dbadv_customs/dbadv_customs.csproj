@@ -182,6 +182,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Store_View.resx">
+      <DependentUpon>Store_View.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sub_Customer_View_Form.resx">
       <DependentUpon>Sub_Customer_View_Form.cs</DependentUpon>
     </EmbeddedResource>

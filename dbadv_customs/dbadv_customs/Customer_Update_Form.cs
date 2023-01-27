@@ -20,7 +20,6 @@ namespace dbadv_customs
             InitializeComponent();
             InitCustomerComboBox();
 
-            int a = 2142525425;
         }
 
         private void Customer_Update_Form_Load(object sender, EventArgs e)
@@ -30,8 +29,10 @@ namespace dbadv_customs
 
         void InitCustomerComboBox()
         {
-            SetCustomerList();
 
+            //customerComboBox.SelectedIndex = -1;
+            customerComboBox.Items.Clear();
+            SetCustomerList();
             for (int i = 0; i < customerList.Count; i++)
             {
                 string item = customerList[i].cstmFname + " " +
@@ -40,12 +41,37 @@ namespace dbadv_customs
 
                 customerComboBox.Items.Add(item);
             }
+
+            customerComboBox.SelectedIndex = GetCustomerIndex();
+
         }
+
+        int GetCustomerIndex()
+        {
+            string[] ssnItems = new string[customerComboBox.Items.Count];
+            string[] ssnSplited = null;
+            for (int i = 0; i < customerComboBox.Items.Count; i++)
+            {
+                ssnItems[i] = customerComboBox.Items[i] as string;
+                ssnSplited = ssnItems[i].Split(' ', ':');
+                ssnItems[i] = ssnSplited[ssnSplited.Length - 1];
+            }
+
+            for (int i = 0; i < ssnItems.Length; i++)            
+            {
+                if (ssnItems[i] == ssnTxtbox.Text)
+                {                    
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
 
         void SetCustomerList()
         {
-            //List<Customer> customerList = new List<Customer>();
-
+            customerList.Clear();
             try
             {
                 
@@ -79,8 +105,8 @@ namespace dbadv_customs
         }
         private void customerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             Customer customer = FindCustomer(GetCustomerSsnFromCombobox());
+            if (customer == null) return;
 
             fnameTxtBox.Text = customer.cstmFname;
             lnameTxtBox.Text = customer.cstmLname;
@@ -96,6 +122,10 @@ namespace dbadv_customs
 
         string GetCustomerSsnFromCombobox()
         {
+            if (customerComboBox.SelectedIndex == -1)
+            {
+                return null;
+            }
             string selected = customerComboBox.SelectedItem.ToString();
             string[] splited = selected.Split(' ', ':');
             return splited[splited.Length - 1];
@@ -160,10 +190,10 @@ namespace dbadv_customs
                 comm.Parameters.AddWithValue("@customer_street", streetTxtBox.Text);
                 comm.Parameters.AddWithValue("@customer_plaque", int.Parse(plaqueTxtBox.Text));
                 comm.Parameters.AddWithValue("@myCustomerSsn", myCustomerSsn);
-
-                InitCustomerDataGridView();
                 comm.ExecuteNonQuery();
 
+                InitCustomerDataGridView();
+                InitCustomerComboBox();
                 MessageBox.Show("Customer Updated!", "Update!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             catch (Exception ex)
@@ -201,7 +231,6 @@ namespace dbadv_customs
         }
         bool PhoneNumberLenghtIs11()
         {
-            Console.WriteLine(phNumberTxtbox.Text.Length);
             if (TextLengthIsMax(phNumberTxtbox.Text, 11))
             {
                 phoneNumberError.Visible = false;
@@ -229,9 +258,26 @@ namespace dbadv_customs
         }
         void InitCustomerDataGridView()
         {
-            Customer_View_Form customer_view = new Customer_View_Form();
+            
+            Customer_View_Form customer_view =
+                   GetWinWithName("Customer_View_Form");
             customer_view.InitDataGridView();
         }
+
+        Customer_View_Form GetWinWithName(string winName)
+        {
+            FormCollection fc = Application.OpenForms;
+            foreach (Form form in fc)
+            {
+                if (form.Name == winName)
+                {
+                    return form as Customer_View_Form;                    
+                }
+            }
+
+            return null;
+        }
+
         class Customer
         {
             public string cstmFname;

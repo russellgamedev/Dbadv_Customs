@@ -27,16 +27,18 @@ namespace dbadv_customs
             comm.CommandType = CommandType.Text;
             comm.CommandText = query;
             NpgsqlDataReader dr = comm.ExecuteReader();
+            DataTable dt = new DataTable();
             if (dr.HasRows)
             {
-                DataTable dt = new DataTable();
                 dt.Load(dr);
                 //dataGridView1.DataSource = dt;
-                return dt;
             }
+            else
+                dt = null;
+
             comm.Dispose();
             conn.Close();
-            return null;
+            return dt;
         }
     }
 }

@@ -22,9 +22,12 @@ namespace dbadv_customs
 
         public void InitDataGridView()
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Clear();
-            dataGridView1.DataSource = dataTable;
+            DataTable dataTable = dataGridView1.DataSource as DataTable;
+            if (dataTable != null)
+            {
+                dataTable.Rows.Clear();
+                dataGridView1.DataSource = dataTable;
+            }
 
             try
             {
@@ -37,6 +40,7 @@ namespace dbadv_customs
                 MessageBox.Show(ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void Customer_View_Form_Load(object sender, EventArgs e)
@@ -129,6 +133,18 @@ namespace dbadv_customs
             CloseOpenedWin();
             Delete_Customer_Form delete_form = new Delete_Customer_Form();
             delete_form.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            DataTable dataTable = dataGridView1.DataSource as DataTable;
+            if (dataTable != null)
+            {
+                dataTable.Rows.Clear();
+                dataGridView1.DataSource = dataTable;
+                Console.WriteLine(dataGridView1.Rows.Count);
+                return;
+            }
         }
     }
 }

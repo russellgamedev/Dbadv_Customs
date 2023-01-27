@@ -92,13 +92,11 @@ namespace dbadv_customs
                 return;
             }
             string myCustomerSsn = GetCustomerSsnFromCombobox();
-
             try
             {
 
                 string query = "Delete from customer " +
                                 "where customer_ssn = @customer_ssn";
-
 
                 NpgsqlConnection conn = new NpgsqlConnection
                     (DatabaseManager.connection_String);
@@ -111,7 +109,7 @@ namespace dbadv_customs
                 comm.ExecuteNonQuery();              
 
                 InitCustomerComboBox();
-
+                InitCustomerDataGridView();
                 MessageBox.Show("Customer Deleted!", "Delete!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             catch (Exception ex)
@@ -132,5 +130,26 @@ namespace dbadv_customs
             return splited[splited.Length - 1];
         }
 
+        void InitCustomerDataGridView()
+        {
+
+            Customer_View_Form customer_view =
+                   GetWinWithName("Customer_View_Form");
+            customer_view.InitDataGridView();
+        }
+
+        Customer_View_Form GetWinWithName(string winName)
+        {
+            FormCollection fc = Application.OpenForms;
+            foreach (Form form in fc)
+            {
+                if (form.Name == winName)
+                {
+                    return form as Customer_View_Form;
+                }
+            }
+
+            return null;
+        }
     }
 }

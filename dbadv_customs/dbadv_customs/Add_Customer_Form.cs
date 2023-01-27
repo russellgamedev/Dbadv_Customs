@@ -15,6 +15,7 @@ namespace dbadv_customs
         public Add_Customer_Form()
         {
             InitializeComponent();
+            
         }
 
         private void Add_Customer_FormLoad(object sender, EventArgs e)
@@ -127,10 +128,24 @@ namespace dbadv_customs
         }
 
         void InitCustomerDataGridView()
-        {
-            Customer_View_Form customer_view = new Customer_View_Form();
+        {        
+            Customer_View_Form customer_view =
+                   GetWinWithName("Customer_View_Form");
             customer_view.InitDataGridView();
         }
 
+        Customer_View_Form GetWinWithName(string winName)
+        {
+            FormCollection fc = Application.OpenForms;
+            foreach (Form form in fc)
+            {
+                if (form.Name == winName)
+                {
+                    return form as Customer_View_Form;
+                }
+            }
+
+            return null;
+        }
     }
 }
