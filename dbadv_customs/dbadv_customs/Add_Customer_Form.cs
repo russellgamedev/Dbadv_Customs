@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using Npgsql;
 namespace dbadv_customs
 {
-    public partial class Customer_Form : Form
+    public partial class Add_Customer_Form : Form
     {
-        public Customer_Form()
+        public Add_Customer_Form()
         {
             InitializeComponent();
         }
 
-        private void Customer_Form_Load(object sender, EventArgs e)
+        private void Add_Customer_FormLoad(object sender, EventArgs e)
         {
 
         }
@@ -58,6 +58,7 @@ namespace dbadv_customs
                 comm.Dispose();
                 conn.Close();
 
+                InitCustomerDataGridView();
                 MessageBox.Show("Customer Added", "", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -124,5 +125,12 @@ namespace dbadv_customs
         {
             return text.Length == maxLength;
         }
+
+        void InitCustomerDataGridView()
+        {
+            Customer_View_Form customer_view = new Customer_View_Form();
+            customer_view.InitDataGridView();
+        }
+
     }
 }

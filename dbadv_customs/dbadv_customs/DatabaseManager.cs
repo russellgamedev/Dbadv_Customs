@@ -16,6 +16,27 @@ namespace dbadv_customs
             "User Id=postgres;" +
             "Password=1234";
 
-        
+        public static string subCustomerViewQuery;
+
+        public static DataTable GetDataTableFromQuery(string query)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(connection_String);
+            conn.Open();
+            NpgsqlCommand comm = new NpgsqlCommand();
+            comm.Connection = conn;
+            comm.CommandType = CommandType.Text;
+            comm.CommandText = query;
+            NpgsqlDataReader dr = comm.ExecuteReader();
+            if (dr.HasRows)
+            {
+                DataTable dt = new DataTable();
+                dt.Load(dr);
+                //dataGridView1.DataSource = dt;
+                return dt;
+            }
+            comm.Dispose();
+            conn.Close();
+            return null;
+        }
     }
 }

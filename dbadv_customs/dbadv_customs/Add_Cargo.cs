@@ -158,30 +158,19 @@ namespace dbadv_customs
 
             try
             {
-                NpgsqlConnection conn = new NpgsqlConnection(DatabaseManager.connection_String);
-                conn.Open();
-                NpgsqlCommand comm = new NpgsqlCommand();
-                comm.Connection = conn;
-                comm.CommandType = CommandType.Text;
-                comm.CommandText = "Select * from customer";
-                NpgsqlDataReader dr = comm.ExecuteReader();
-                if (dr.HasRows)
+                DataTable dt = new DataTable();
+                dt = DatabaseManager.GetDataTableFromQuery
+                ("Select * from customer");
+
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    DataTable dt = new DataTable();
-                    dt.Load(dr);
-
-
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
                         DataRow drow = dt.Rows[i];
                         Customer cstm = new Customer(drow[0].ToString(),
                             drow[1].ToString(),
                             drow[2].ToString());
                         customerList.Add(cstm);
-                    }
                 }
-                comm.Dispose();
-                conn.Close();
+               
             }
             catch (Exception ex)
             {
@@ -194,7 +183,8 @@ namespace dbadv_customs
         void SetStoreList()
         {
             string query = "Select * from store";
-            DataTable dt = GetDataTableFromCustomer(query);
+            DataTable dt = new DataTable();
+            dt = DatabaseManager.GetDataTableFromQuery(query);
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -205,35 +195,7 @@ namespace dbadv_customs
             }
         }
 
-        DataTable GetDataTableFromCustomer(string query)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                NpgsqlConnection conn = new NpgsqlConnection(DatabaseManager.connection_String);
-                conn.Open();
-                NpgsqlCommand comm = new NpgsqlCommand();
-                comm.Connection = conn;
-                comm.CommandType = CommandType.Text;
-                comm.CommandText = query;
-                NpgsqlDataReader dr = comm.ExecuteReader();
-                if (dr.HasRows)
-                {
-                    dt.Load(dr);
-                }
-
-                comm.Dispose();
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return dt;
-        }
-
+       
         class Customer
         {
             public string cstmFname;

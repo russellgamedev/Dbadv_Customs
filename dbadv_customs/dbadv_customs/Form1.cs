@@ -23,8 +23,30 @@ namespace dbadv_customs
         {
             
         }
-      
 
+        private void Add_Customer_button_Click(object sender, EventArgs e)
+        {
+            Add_Customer_Form customer_Form = new Add_Customer_Form();
+            customer_Form.Show();
+        }
+
+        private void Customer_List_button_Click(object sender, EventArgs e)
+        {
+            Customer_View_Form customer_View = new Customer_View_Form();
+            customer_View.Show();
+        }
+
+        private void Add_Cargo_button_Click(object sender, EventArgs e)
+        {
+            Add_Cargo add_Cargo = new Add_Cargo();
+            add_Cargo.Show();
+        }
+
+        private void Store_List_button_Click(object sender, EventArgs e)
+        {
+            Store_View storeView = new Store_View();
+            storeView.Show();
+        }
     }
 
     

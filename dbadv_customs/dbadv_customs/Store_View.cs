@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dbadv_customs
 {
-    public partial class Add_Employee : dbadv_customs.Add_Customer_Form
+    public partial class Store_View : Form
     {
-        public Add_Employee()
+        public Store_View()
         {
             InitializeComponent();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
